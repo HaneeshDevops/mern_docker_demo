@@ -5,11 +5,11 @@ LABEL description="React Frontend for the Library API"
 
 WORKDIR /app
 
-COPY ./package.json ./
+COPY package.json .
+COPY package-lock.json .
 
-RUN npm install
+RUN npm ci --only=production
 
 COPY . .
 
-CMD [ "npm", "run", "start" ]
-
+CMD ["npm", "start"]
