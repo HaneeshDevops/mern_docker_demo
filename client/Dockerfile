@@ -1,15 +1,20 @@
-FROM node:14-alpine3.10
+# Base image
+FROM node:14
 
-LABEL version="1.0"
-LABEL description="React Frontend for the Library API"
-
+# Set the working directory
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json* ./
 
-RUN npm ci --only=production
+# Install dependencies
+RUN npm install
 
+# Copy the source code
 COPY . .
 
-CMD ["npm", "start"]
+# Set environment variables (if required)
+ENV NODE_ENV=production
+
+# Build the React app
+RUN npm run build
